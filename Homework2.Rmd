@@ -124,35 +124,4 @@ filter(gapminder,
 
 ```
 
-I guess I can expect to live to 72 years old!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+I guess I can expect to live to 74 years old!
