@@ -184,4 +184,4 @@ filter(gapminder,
 | Peru      |       66|  22430449|       4446|
 | Bolivia   |       60|   6893451|       2962|
 
-I guess I can expect to live to 72 years old!
+I guess I can expect to live to 74 years old!
