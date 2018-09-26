@@ -1,2 +1,3 @@
-# hw02-dirediredocks
-hw02-dirediredocks created by GitHub Classroom
+# Homework 2
+
+This repo has `.Rmd` and `.md` files, and a folder with supplementary images.
