@@ -1,0 +1,158 @@
+---
+title: "Homework2"
+output: github_document
+---
+
+# Homework 2
+
+Here is an exploration of the *Gapminder* dataset using `ggplot2` and `dplyr`.
+
+### 1. First, the packages must be loaded.
+
+*Gapminder* is the dataset itself, while `tidyverse` is the meta-package, a collection with tools like `ggplot2` for graphics, `tbl_df` for tibble data.frames, and `dplyr` for manipulating data.
+
+```{r}
+
+library(gapminder)
+library(tidyverse)
+
+```
+
+### 2. What kind of dataset is *Gapminder*?
+
+A "data.frame" of demographic metrics by countries and how they relate to each other over time. The summary function shows that there are 6 columns. Two are composed of frequency counts (`country` and `continent`), and four are numerical quantities (`year`, `lifeExp`, `pop`, and `gdpPercap`). These values span 1704 rows.
+
+```{r}
+
+summary(gapminder)
+class(gapminder)
+ncol(gapminder)
+nrow(gapminder)
+
+```
+
+What years does the *Gapminder* dataset consider? It spans 55 years, from 1952 to 2007.
+
+```{r}
+
+max(gapminder$year)-min(gapminder$year)
+
+```
+
+Unlike a matrix that is composed only of numerical values, a "data.frame" can have more than one type of data, like integers and doubles. *Gapminder* has both, so it is a "data.frame".
+
+```{r}
+
+sapply(gapminder, typeof)
+
+```
+
+### 3. Exploring the life expectancy of Chile over time.
+
+If you plot Chile's life expactancy `lifeExp` over time `year`, and make the points look like maountains, you get the Andes cordillera range!
+
+```{r}
+
+filter(gapminder, country == "Chile") %>%
+ggplot(aes(year, lifeExp)) +
+  geom_point(shape = 2, stroke = 2, size = 4)
+
+```
+
+We can also compare all the countries that share the Andes mountain range with Chile.
+
+```{r}
+filter(gapminder, country == "Chile"
+       | country == "Argentina"
+       | country == "Peru"
+       | country == "Bolivia") %>% 
+ggplot(aes(year,lifeExp)) +
+  geom_point(aes(colour = country), shape = 2, stroke = 2, size = 4)
+```
+
+We can also look at `lifeExp` by itself through "violin-and-jitter" plots.
+
+```{r}
+
+filter(gapminder, country == "Chile"
+       | country == "Argentina"
+       | country == "Peru"
+       | country == "Bolivia") %>% 
+  ggplot(aes(country, lifeExp)) +
+  geom_violin() +
+  geom_jitter(alpha=0.2, shape=1, size=5, stroke=2)
+
+```
+
+In contrast, we can also look at `pop` or population through "violin-and-jitter" plots.
+
+```{r}
+
+filter(gapminder, country == "Chile"
+       | country == "Argentina"
+       | country == "Peru"
+       | country == "Bolivia") %>% 
+  ggplot(aes(country, pop)) +
+  geom_violin() +
+  geom_jitter(alpha=0.2, shape=1, size=5, stroke=2)
+
+```
+
+### 4. Exploring the raw data of Chile's neighbours.
+
+```{r}
+
+filter(gapminder, country == c("Chile", "Argentina", "Bolivia", "Peru"))
+
+```
+
+I was born in Chile in 1993, so I'm interested in summary data of the region during that time. *Gapminder* has the year 1992, which is close enough.
+
+```{r}
+
+filter(gapminder,
+       
+       country == "Chile"
+       | country == "Argentina"
+       | country == "Peru"
+       | country == "Bolivia",
+       
+       year == 1992) %>%
+  arrange(desc(gdpPercap)) %>% 
+  select(country, lifeExp, pop, gdpPercap) %>% 
+  knitr::kable(digits = 0)
+
+```
+
+I guess I can expect to live to 72 years old!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
